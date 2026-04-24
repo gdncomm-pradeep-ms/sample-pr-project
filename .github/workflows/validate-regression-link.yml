@@ -1,0 +1,23 @@
+name: Validate Regression Area Link
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check regression area has a JIRA link
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || '';
+            const regressionSection = body.split('### Regression Area')[1] || '';
+
+            const hasJiraLink = /https:\/\/gdncomm\.atlassian\.net\/browse\/SEA-\d+/.test(regressionSection);
+
+            if (!hasJiraLink) {
+              core.setFailed('PR is missing a JIRA link in the Regression Area section. Please add a https://gdncomm.atlassian.net/browse/SEA-XXXXX link.');
+            }
