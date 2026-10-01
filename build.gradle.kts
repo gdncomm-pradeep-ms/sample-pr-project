@@ -19,8 +19,6 @@ sonar {
     property("sonar.projectKey", "sample-pr-project-test")
     property("sonar.projectName", "sample-pr-project-test")
     property("sonar.sourceEncoding", "UTF-8")
-    property("sonar.sources", "app/src/main/java")
-    property("sonar.tests", "app/src/test/java")
     property("sonar.java.coveragePlugin", "jacoco")
     property(
       "sonar.coverage.jacoco.xmlReportPaths",
