@@ -6,12 +6,12 @@ buildscript {
   dependencies {
     classpath("com.android.tools.build:gradle:9.3.1")
     classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.10")
-    classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:7.3.1.8318")
+    classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:7.5.0.8588")
   }
 }
 
 plugins {
-  id("org.sonarqube") version "7.3.1.8318"
+  id("org.sonarqube") version "7.5.0.8588"
 }
 
 sonar {
