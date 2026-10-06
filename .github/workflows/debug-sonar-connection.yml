@@ -1,0 +1,28 @@
+name: Debug Sonar Connection
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: self-hosted
+    steps:
+      - name: Check Sonar host reachability and project existence
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          echo "--- Host reachability ---"
+          curl -s -o /dev/null -w "HTTP_CODE=%{http_code}\n" --max-time 10 "${SONAR_HOST_URL}/api/system/status" || echo "CURL_FAILED"
+
+          echo "--- System status body ---"
+          curl -s --max-time 10 "${SONAR_HOST_URL}/api/system/status" || echo "CURL_FAILED"
+          echo
+
+          echo "--- Project existence (sample-pr-project-test) ---"
+          curl -s -u "${SONAR_TOKEN}:" --max-time 10 "${SONAR_HOST_URL}/api/components/show?component=sample-pr-project-test" || echo "CURL_FAILED"
+          echo
+
+          echo "--- Token validation ---"
+          curl -s -u "${SONAR_TOKEN}:" --max-time 10 "${SONAR_HOST_URL}/api/authentication/validate" || echo "CURL_FAILED"
+          echo
