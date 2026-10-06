@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ANDROID_HOME: ${{ secrets.ANDROID_HOME }}
+  ANDROID_HOME: ${{ vars.ANDROID_HOME }}
 
 jobs:
   release-build:
