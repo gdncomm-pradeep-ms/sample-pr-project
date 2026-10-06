@@ -9,6 +9,9 @@ concurrency:
   group: sonar-quality-gate-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+env:
+  ANDROID_HOME: ${{ secrets.ANDROID_HOME }}
+
 jobs:
   release-build:
     runs-on: self-hosted
